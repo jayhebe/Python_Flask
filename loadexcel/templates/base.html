@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% block head %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome to Excel Extracting!</title>
+    <link rel="icon" href="{{ url_for('static', filename='images/VCAP-DCD.jpg') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    {% endblock %}
+</head>
+<body>
+    <h2>
+        <img alt="Avatar" class="avatar" src="{{ url_for('static', filename='images/avatar.png') }}">
+        Welcome to Excel Extracting Demo
+    </h2>
+    {% block content %}{% endblock %}
+    <footer>
+        <img alt="Walking Totoro" class="totoro" src="{{ url_for('static', filename='images/totoro.gif') }}" title="to~to~ro~">
+        <small>&copy; 2020 <a href="http://localhost:5000">Excel Demo</a></small>
+    </footer>
+</body>
+</html>

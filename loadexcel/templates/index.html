@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<form method="post" enctype=multipart/form-data>
+    <div class="upload">
+        <h4>请选择需要提取的文件:</h4>
+        <p id="file-upload">
+            <a href="javascript:void(0);">
+              <input type="file" id="file" name="file" multiple="multiple" />
+            </a>
+            <input type="submit" id="upload" name="upload" value="upload" class="btn"/>
+        </p>
+    </div>
+</form>
+
+{% if get_flashed_messages() %}
+<form method="post" action="/list_content">
+    <div class="excel-list">
+        <h4>请选择需要提取的列:</h4>
+        <p id="excel-columns">
+            {% for head_column, head_name in get_flashed_messages() %}
+            <label for="{{ head_name }}">{{ head_name }}</label>
+                <input type="checkbox" id="{{ head_name }}" name="excel_headers" value="{{ head_column }}" />
+            {% endfor %}
+        </p>
+        <input type="hidden" id="filename" name="filename" value="{{ request.args.get('filename') }}" />
+        <input type="submit" id="submit" name="submit" value="export" class="btn"/>
+    </div>
+</form>
+{% endif %}
+{% endblock %}

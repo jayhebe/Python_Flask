@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block content %}
+{% if get_flashed_messages() %}
+    <table class="fl-table">
+    {% for message in get_flashed_messages() %}
+        {% for record in message %}
+            <tr>
+            {% for value in record %}
+                <td>{{ value }}</td>
+            {% endfor %}
+            </tr>
+        {% endfor %}
+    {% endfor %}
+    </table>
+{% endif %}
+{% endblock %}

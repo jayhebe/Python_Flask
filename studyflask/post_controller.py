@@ -1,7 +1,7 @@
 from flask import Blueprint
 
 
-post_page = Blueprint("index_page", __name__)
+post_page = Blueprint("post_page", __name__)
 
 
 @post_page.route("/index/")

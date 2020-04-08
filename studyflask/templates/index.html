@@ -1,10 +1,10 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
-Hello Flask!
-</body>
-</html>
+{% extends "base.html" %}
+{% block content %}
+{% for value in result %}
+    {{ value["bid"] }}
+    {{ value["bname"] }}
+    {{ value["price"] }}
+    {{ value["btypeid"] }}
+    <br />
+{% endfor %}
+{% endblock %}

@@ -13,17 +13,17 @@
     </div>
 </form>
 
-{% if get_flashed_messages() %}
+{% if file_name %}
 <form method="post" action="/list_content">
     <div class="excel-list">
         <h4>请选择需要提取的列:</h4>
         <p id="excel-columns">
-            {% for head_column, head_name in get_flashed_messages() %}
+            {% for head_column, head_name in excel_headers.items() %}
             <label for="{{ head_name }}">{{ head_name }}</label>
                 <input type="checkbox" id="{{ head_name }}" name="excel_headers" value="{{ head_column }}" />
             {% endfor %}
         </p>
-        <input type="hidden" id="filename" name="filename" value="{{ request.args.get('filename') }}" />
+        <input type="hidden" id="filename" name="filename" value="{{ file_name }}" />
         <input type="submit" id="submit" name="submit" value="export" class="btn"/>
     </div>
 </form>

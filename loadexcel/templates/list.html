@@ -1,16 +1,14 @@
 {% extends 'base.html' %}
 
 {% block content %}
-{% if get_flashed_messages() %}
+{% if excel_result %}
     <table class="fl-table">
-    {% for message in get_flashed_messages() %}
+    {% for message in excel_result %}
+        <tr>
         {% for record in message %}
-            <tr>
-            {% for value in record %}
-                <td>{{ value }}</td>
-            {% endfor %}
-            </tr>
+            <td>{{ record }}</td>
         {% endfor %}
+        </tr>
     {% endfor %}
     </table>
 {% endif %}

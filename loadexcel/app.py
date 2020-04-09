@@ -1,6 +1,6 @@
-from flask import Flask, render_template, request, url_for, redirect, flash
+from flask import Flask, render_template, request
 from werkzeug import secure_filename
-from .tools.extract import read_head, read_content
+from tools.extract import read_head, read_content
 
 import os
 
@@ -18,9 +18,12 @@ def index():
             file_name = secure_filename(excel_file.filename)
             excel_file.save(os.path.join(app.config["UPLOAD_FOLDER"], file_name))
             excel_headers = read_head(os.path.join(app.config["UPLOAD_FOLDER"], file_name))
-            for excel_header in excel_headers.items():
-                flash(excel_header)
-            return redirect(url_for("index", filename=file_name))
+
+            excel_result = dict()
+            excel_result["file_name"] = file_name
+            excel_result["excel_headers"] = excel_headers
+
+            return render_template("index.html", **excel_result)
 
     return render_template("index.html")
 
@@ -34,6 +37,9 @@ def list_content():
         excel_filepath = os.path.join(app.config["UPLOAD_FOLDER"], excel_filename)
         excel_result = read_content(excel_filepath, excel_headers)
 
-        flash(excel_result)
+        list_result = dict()
+        list_result["excel_result"] = excel_result
+
+        return render_template("list.html", **list_result)
 
     return render_template("list.html")

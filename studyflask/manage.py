@@ -1,4 +1,4 @@
-from route_register import *
+from www import *
 from application import app
 
 

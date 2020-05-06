@@ -1,9 +1,10 @@
-from flask import Blueprint, render_template, request, make_response
+from flask import Blueprint, render_template, request, make_response, redirect
 
 from application import db
 from common.libs.helper import render_json, render_error_json
 from common.libs.date_time_helper import get_current_time
 from common.libs.user_service import UserService
+from common.libs.url_manager import UrlManager
 from common.models.user import User
 
 member_page = Blueprint("member_page", __name__)
@@ -89,3 +90,11 @@ def login():
         return response
 
     return render_template("member/login.html")
+
+
+@member_page.route("/logout", methods=["GET", "POST"])
+def logout():
+    response = make_response(redirect(UrlManager.build_url("/")))
+    response.delete_cookie("auth_cookie")
+
+    return response

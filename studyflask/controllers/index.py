@@ -1,5 +1,6 @@
-from flask import Blueprint, request, make_response, jsonify, render_template
-from common.models.books import Book
+from flask import Blueprint
+
+from common.libs.helper import render_page
 
 index_page = Blueprint("index_page", __name__)
 
@@ -8,7 +9,4 @@ index_page = Blueprint("index_page", __name__)
 def index():
     context = dict()
 
-    result = Book.query.all()
-    context["result"] = result
-
-    return render_template("index.html", **context)
+    return render_page("index.html", **context)

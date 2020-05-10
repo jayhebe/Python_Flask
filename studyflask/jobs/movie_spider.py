@@ -56,9 +56,6 @@ def parse_movie_info(movie_link_list):
             return None
 
         movie_bs = BeautifulSoup(movie_res.text, "html.parser")
-
-        movie_info["链接"] = movie_link
-
         movie_intro = movie_bs.find("div", class_="vod_intro rt")
 
         movie_name = movie_intro.find("h1").text.strip()
@@ -74,6 +71,8 @@ def parse_movie_info(movie_link_list):
 
         movie_cover = movie_bs.find("div", class_="vod_img lf").find("img")["src"]
         movie_info["封面图"] = movie_cover
+
+        movie_info["链接"] = movie_link
 
         movie_download_list = []
         movie_download_page = movie_download_base_url + movie_link[movie_link.rindex("/") + 3:]

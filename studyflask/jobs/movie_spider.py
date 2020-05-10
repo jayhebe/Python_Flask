@@ -56,16 +56,22 @@ def parse_movie_info(movie_link_list):
             return None
 
         movie_bs = BeautifulSoup(movie_res.text, "html.parser")
+
         movie_info["链接"] = movie_link
+
         movie_intro = movie_bs.find("div", class_="vod_intro rt")
+
         movie_name = movie_intro.find("h1").text.strip()
         movie_info["电影名"] = movie_name
+
         movie_meta_key = movie_intro.find_all("dt")
         movie_meta_value = movie_intro.find_all("dd")
         for meta_key, meta_value in zip(movie_meta_key, movie_meta_value):
             movie_info[meta_key.text.replace(":", "")] = meta_value.text.replace("\xa0", " ").strip()
+
         movie_description = movie_intro.find("div", class_="c05").text.replace('"', "").strip()
         movie_info["剧情介绍"] = movie_description
+
         movie_cover = movie_bs.find("div", class_="vod_img lf").find("img")["src"]
         movie_info["封面图"] = movie_cover
 

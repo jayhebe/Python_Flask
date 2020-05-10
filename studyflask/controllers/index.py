@@ -7,6 +7,4 @@ index_page = Blueprint("index_page", __name__)
 
 @index_page.route("/")
 def index():
-    context = dict()
-
-    return render_page("index.html", **context)
+    return render_page("index.html")

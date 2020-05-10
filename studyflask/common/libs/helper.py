@@ -26,5 +26,6 @@ def render_page(template, context=None):
 
     if "current_user" in g:
         context["current_user"] = g.current_user
+        context["movie_info"] = g.movie_info
 
     return render_template(template, **context)

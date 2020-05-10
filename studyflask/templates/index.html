@@ -1,11 +1,12 @@
 {% extends "common/base.html" %}
 {% block content %}
-{% if current_user %}
-    {{ current_user.login_name }}
-    {{ current_user.nickname }}
-    {{ current_user.status }}
-    {{ current_user.email }}
-    {{ current_user.created_time }}
-    {{ current_user.updated_time }}
-{% endif %}
+    {% if movie_info %}
+        <div class="row">
+            {% for movie in movie_info %}
+                <div class="col-md-2">
+                    <img src="{{ movie['cover_pic'] }}" alt="{{ movie['name'] }}" width="182px" height="260px">
+                </div>
+            {% endfor %}
+        </div>
+    {% endif %}
 {% endblock %}

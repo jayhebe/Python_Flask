@@ -11,7 +11,7 @@ from application import db, app
 movie_base_url = "http://btbtdy1.com"
 movie_download_base_url = "http://btbtdy1.com/vidlist/"
 movie_page_url = "http://btbtdy1.com/btfl/dy1-{}.html"
-movie_page_range = 1
+movie_page_range = 3
 movie_headers = {
     "user-agent": 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) \
      Chrome/71.0.3578.98 Safari/537.36'
@@ -32,7 +32,7 @@ def get_page_info():
         for info in page_info:
             page_info_list.append(info)
 
-        return page_info_list
+    return page_info_list
 
 
 def get_movie_link(page_info_list):
@@ -64,7 +64,10 @@ def parse_movie_info(movie_link_list):
         movie_meta_key = movie_intro.find_all("dt")
         movie_meta_value = movie_intro.find_all("dd")
         for meta_key, meta_value in zip(movie_meta_key, movie_meta_value):
-            movie_info[meta_key.text.replace(":", "")] = meta_value.text.replace("\xa0", " ").strip()
+            meta_key_text = meta_key.text.replace(":", "").strip()
+            meta_value_text = meta_value.text.replace("\xa0", " ").replace("电影 / ", "").strip()
+
+            movie_info[meta_key_text] = meta_value_text
 
         movie_description = movie_intro.find("div", class_="c05").text.replace('"', "").strip()
         movie_info["剧情介绍"] = movie_description
@@ -104,7 +107,7 @@ def write_database(movie_info_list):
         model_movie.magnet_url = ", ".join(movie_info["下载链接"])
         hash_value = hashlib.md5(movie_info["链接"].encode("utf-8")).hexdigest()
         model_movie.hash_value = hash_value
-        model_movie.pub_date = get_current_time()
+        model_movie.pub_date = movie_info["更新"]
         model_movie.source = movie_info["链接"]
         model_movie.created_time = get_current_time()
         model_movie.updated_time = get_current_time()

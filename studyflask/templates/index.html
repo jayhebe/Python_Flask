@@ -1,12 +1,17 @@
 {% extends "common/base.html" %}
 {% block content %}
     {% if movie_info %}
-        <div class="row">
-            {% for movie in movie_info %}
-                <div class="col-md-2">
-                    <img src="{{ movie['cover_pic'] }}" alt="{{ movie['name'] }}" width="182px" height="260px">
-                </div>
-            {% endfor %}
+        <div class="container">
+            <div class="row">
+                {% for movie in movie_info %}
+                    <div class="col-md-3" style="margin-bottom: 50px">
+                        <img src="{{ movie['cover_pic'] }}" alt="{{ movie['name'] }}" class="img-thumbnail center-block"
+                             style="width: 182px; height: 260px; max-height: 100%">
+                        <div class="text-center">{{ movie['name'] }}</div>
+                        <div class="text-center">{{ movie['classify'] }}</div>
+                    </div>
+                {% endfor %}
+            </div>
         </div>
     {% endif %}
 {% endblock %}
